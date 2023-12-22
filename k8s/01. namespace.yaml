@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    app.kubernetes.io/instance: camel-bridge
+    app.kubernetes.io/name: camel-bridge
+  name: camel-bridge

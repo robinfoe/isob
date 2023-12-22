@@ -1,0 +1,37 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+containerdConfigPatches: ## patching config to join back local registry (kind-registry:5000)
+- |-
+  [plugins."io.containerd.grpc.v1.cri".registry]
+    config_path = "/etc/containerd/certs.d"
+nodes:
+- role: control-plane
+  kubeadmConfigPatches:
+  - |
+    kind: InitConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "ingress-ready=true"
+  extraPortMappings:
+  - containerPort: 6443
+    hostPort: 6443
+    listenAddress: "0.0.0.0"
+  - containerPort: 80
+    hostPort: 9080
+    listenAddress: "0.0.0.0"
+  - containerPort: 443
+    hostPort: 9443
+    listenAddress: "0.0.0.0"
+  - containerPort: 32500
+    hostPort: 9200
+    listenAddress: "0.0.0.0"
+- role: worker
+  # extraPortMappings:
+  # - containerPort: 32000
+  #   hostPort: 9201
+  #   listenAddress: "0.0.0.0"
+- role: worker
+  # extraPortMappings:
+  # - containerPort: 32000
+  #   hostPort: 9202
+  #   listenAddress: "0.0.0.0"

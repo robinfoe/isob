@@ -1,0 +1,10 @@
+apiVersion: v1
+data:
+  app.properties: |-
+    route.netty.port=9200
+    route.netty.host=0.0.0.0:9200
+    logging.level.root=INFO
+kind: ConfigMap
+metadata:
+  name: iso-bridge-config
+  namespace: camel-bridge

@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iso-bridge
+  namespace: camel-bridge
+  labels:
+    app: iso-bridge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iso-bridge
+  template:
+    metadata:
+      labels:
+        app: iso-bridge
+    spec:
+      containers:
+      - name: iso-bridge
+        image: robinfoe/camel-iso-bridge
+        ports:
+        - containerPort: 8080
+          name: http
+        - containerPort: 9200
+          name: netty-tcp
+        command: ["java"]
+        args: ["-jar", "-Dspring.config.location=file:/app/config/app.properties", "isob.jar"]
+        volumeMounts:
+        - name: iso-bridge-config
+          mountPath: /app/config/
+      volumes:
+      - name: iso-bridge-config
+        configMap:
+          name: iso-bridge-config

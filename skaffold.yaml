@@ -1,0 +1,13 @@
+apiVersion: skaffold/v4beta7
+kind: Config
+metadata:
+  name: isocamel
+build:
+  # tagPolicy:
+  #   inputDigest: {}
+  local: 
+    push: false
+  artifacts:
+  - image: robinfoe/camel-iso-bridge
+deploy:
+  kubectl: {}
