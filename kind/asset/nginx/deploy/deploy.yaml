@@ -367,7 +367,7 @@ spec:
     protocol: TCP
     targetPort: https
   - appProtocol: TCP
-    name: proxied-tcp-9000
+    name: proxied-tcp-9200
     port: 9200
     targetPort: 9200
     nodePort: 32500
